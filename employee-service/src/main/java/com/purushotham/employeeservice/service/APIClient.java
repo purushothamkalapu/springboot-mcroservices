@@ -1,6 +1,7 @@
 package com.purushotham.employeeservice.service;
 
 import com.purushotham.employeeservice.dto.DepartmentDTO;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(url = "http://localhost:8080", value = "DEPARTMENT-SERVICE")
 //Loadbalancer mutiple instances DepartmentService
-//@FeignClient(name = "DEPARTMENT-SERVICE")
+//@FeignClient(name = "DEPARTMENT-SERVICE", url = "DEPARTMENT-SERVICE", value = "DEPARTMENT-SERVICE")
 public interface APIClient {
 
     @GetMapping("api/departments/departmentCode/{departmentCode}")
