@@ -4,12 +4,18 @@ spring:
     url: jdbc:mysql://localhost:3306/employee_db
     username: root
     password: Krithik@2020
+  application:
+    name: EMPLOYEE-SERVICE
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
 server:
   port: 8081
