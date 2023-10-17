@@ -1,5 +1,6 @@
 package com.purushotham.employeeservice.controller;
 
+import com.purushotham.employeeservice.dto.APIResponseDTO;
 import com.purushotham.employeeservice.dto.EmployeeDTO;
 import com.purushotham.employeeservice.entity.Employee;
 import com.purushotham.employeeservice.service.EmployeeService;
@@ -25,9 +26,9 @@ public class EmployeeController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable("id") Long employeeId){
-        EmployeeDTO employeeDTO = employeeService.getEmployeeById(employeeId);
-        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
+    public ResponseEntity<APIResponseDTO> getEmployeeById(@PathVariable("id") Long employeeId){
+        APIResponseDTO apiResponseDTO = employeeService.getEmployeeById(employeeId);
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }
     @GetMapping
     public ResponseEntity<List<EmployeeDTO>> getAllEmployees(){

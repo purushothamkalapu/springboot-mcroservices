@@ -20,4 +20,8 @@ public class EmployeeDTO {
     @NotEmpty(message = "Employee email should not be null or Empty")
     @Email(message = "Email id should be Valid format")
     private String email;
+    @NotEmpty(message = "Department Code should not be null or Empty")
+    private String departmentCode;
+
+
 }

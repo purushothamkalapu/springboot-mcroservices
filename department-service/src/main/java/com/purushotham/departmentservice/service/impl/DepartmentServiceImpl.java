@@ -41,6 +41,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public DepartmentDTO getDepartmentByDepartmentCode(String departmentCode) {
+        Department department = departmentRepository.findByDepartmentCode(departmentCode).orElseThrow(
+                ()-> new ResourceNotFoundException("Department", "departmentCode", 0L)
+        );
+        DepartmentDTO departmentDTO = modelMapper.map(department, DepartmentDTO.class);
+        return departmentDTO;
+    }
+
+    @Override
     public List<DepartmentDTO> getAllDepartment() {
         List<Department> departments = departmentRepository.findAll();
         return departments.stream().map((department -> modelMapper.map(department, DepartmentDTO.class)))

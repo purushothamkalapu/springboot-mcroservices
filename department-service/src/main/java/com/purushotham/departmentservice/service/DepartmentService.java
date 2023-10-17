@@ -8,5 +8,6 @@ public interface DepartmentService {
     DepartmentDTO saveDepartment(DepartmentDTO departmentDTO);
 
     DepartmentDTO getDepartmentById(Long id);
+    DepartmentDTO getDepartmentByDepartmentCode(String departmentCode);
     List<DepartmentDTO> getAllDepartment();
 }

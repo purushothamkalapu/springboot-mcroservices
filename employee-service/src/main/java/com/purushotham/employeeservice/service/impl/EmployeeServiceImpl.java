@@ -1,13 +1,19 @@
 package com.purushotham.employeeservice.service.impl;
 
+import com.purushotham.employeeservice.dto.APIResponseDTO;
+import com.purushotham.employeeservice.dto.DepartmentDTO;
 import com.purushotham.employeeservice.dto.EmployeeDTO;
 import com.purushotham.employeeservice.entity.Employee;
 import com.purushotham.employeeservice.exception.EmailAlreadyExistException;
 import com.purushotham.employeeservice.repository.EmployeeRepository;
+import com.purushotham.employeeservice.service.APIClient;
 import com.purushotham.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +23,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
-
     private ModelMapper modelMapper;
+    private APIClient apiClient;
+    //private WebClient webClient;
+    //private RestTemplate restTemplate;
     @Override
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
         Optional<Employee> optionalEmployee = employeeRepository.findByEmail(employeeDTO.getEmail());
@@ -31,9 +39,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO getEmployeeById(Long employeeId) {
+    public APIResponseDTO getEmployeeById(Long employeeId) {
+
         Employee employee = employeeRepository.findById(employeeId).get();
-        return modelMapper.map(employee, EmployeeDTO.class);
+        /*ResponseEntity<DepartmentDTO> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/departments/departmentCode/"+employee.getDepartmentCode(),
+                DepartmentDTO.class);
+                DepartmentDTO departmentDTO = responseEntity.getBody();*/
+        /*DepartmentDTO departmentDTO = webClient.get()
+                .uri("http://localhost:8080/api/departments/departmentCode/"+employee.getDepartmentCode())
+                .retrieve()
+                .bodyToMono(DepartmentDTO.class)
+                .block();*/
+
+        DepartmentDTO departmentDTO = apiClient.getDepartmentByDepartmentCode(employee.getDepartmentCode());
+        EmployeeDTO employeeDTO = modelMapper.map(employee, EmployeeDTO.class);
+        APIResponseDTO apiResponseDTO = new APIResponseDTO();
+        apiResponseDTO.setEmployee(employeeDTO);
+        apiResponseDTO.setDepartment(departmentDTO);
+        return apiResponseDTO;
     }
 
     @Override

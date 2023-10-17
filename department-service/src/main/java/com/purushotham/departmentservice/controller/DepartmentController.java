@@ -22,8 +22,8 @@ public class DepartmentController {
       return new ResponseEntity<>(saveDepartment, HttpStatus.CREATED);
     }
 
-    @GetMapping("{departmentCode}")
-    public ResponseEntity<DepartmentDTO> getDepartmentByDepartmentCode(@PathVariable("departmentCode") Long id){
+    @GetMapping("{id}")
+    public ResponseEntity<DepartmentDTO> getDepartmentById(@PathVariable("id") Long id){
         DepartmentDTO departmentDTO = departmentService.getDepartmentById(id);
         return new ResponseEntity<>(departmentDTO, HttpStatus.OK);
     }
@@ -31,5 +31,10 @@ public class DepartmentController {
     public ResponseEntity<List<DepartmentDTO>> getAllDepartments(){
         List<DepartmentDTO> departments = departmentService.getAllDepartment();
         return new ResponseEntity<>(departments, HttpStatus.OK);
+    }
+    @GetMapping("departmentCode/{departmentCode}")
+    public ResponseEntity<DepartmentDTO> getDepartmentByDepartmentCode(@PathVariable("departmentCode") String departmentCode){
+        DepartmentDTO departmentDTO = departmentService.getDepartmentByDepartmentCode(departmentCode);
+        return new ResponseEntity<>(departmentDTO, HttpStatus.OK);
     }
 }
