@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/department_db
     username: root
-    password: Krithik2020
+    password: Krithik@2020
   application:
     name: DEPARTMENT-SERVICE
   jpa:
@@ -18,6 +18,6 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 server:
-  port: 8080
+  port: 8083
 
 
