@@ -7,6 +7,11 @@ spring:
     name: DEPARTMENT-SERVICE
   config:
     import: optional:configserver:http://localhost:8888
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 #  jpa:
 #    properties:
 #      hibernate:
@@ -21,5 +26,8 @@ spring:
 #      defaultZone: http://localhost:8761/eureka/
 #server:
 #  port: 8080
-
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
