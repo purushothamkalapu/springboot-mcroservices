@@ -18,6 +18,10 @@ spring:
   cloud:
     compatibility-verifier:
       enabled: false
+management:
+  tracing:
+    sampling:
+      probability: 1
 
 #  jpa:
 #    hibernate:
