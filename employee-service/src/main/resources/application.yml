@@ -18,10 +18,44 @@ spring:
   cloud:
     compatibility-verifier:
       enabled: false
+#Actuator Endpoints for Circuit backer
 management:
   tracing:
     sampling:
       probability: 1
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+#Circute Breaker Configuration
+resilience4j:
+  circuitbreaker:
+    instances:
+      EMPLOYEE-SERVICE:
+        registerHealthIndicator: true
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+  #retry Configuration
+  retry:
+    instances:
+      EMPLOYEE-SERVICE:
+        max-attempts: 5
+        wait-duration: 2s
+
+
+
 
 #  jpa:
 #    hibernate:
